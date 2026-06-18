@@ -1,6 +1,6 @@
 ; Engine configuration file.
 ; It's best edited using the editor UI and not directly,
-; since the parameters that go here are not obvious.
+; since the parameters that go here are not all obvious.
 ;
 ; Format:
 ;   [section] ; section goes between []
@@ -14,6 +14,7 @@ config/name="修仙？我直接架火箭"
 config/description="穿越修仙世界，选择你的道路：修仙飞升还是科技降维打击！"
 config/version="0.1.0"
 run/main_scene="res://scenes/main_menu.tscn"
+config/features=PackedStringArray("4.5")
 config/icon="res://assets/icon.svg"
 
 [autoload]
@@ -28,9 +29,9 @@ window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
-[input_devices]
+[gdscript]
 
-pointing/emulate_touch_from_mouse=true
+warnings/enable=true
 
 [input]
 
@@ -55,11 +56,11 @@ dodge_right={
 ]
 }
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
-
-[gdscript]
-
-warnings/enable=true
