@@ -1,0 +1,49 @@
+# Godot 4.x — 自动生成和缓存文件
+
+# Godot 导入缓存（最大噪音源）
+.godot/
+
+# 导出目录
+export/
+build/
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# 操作系统垃圾
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / 编辑器
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Android 构建残留
+android/.gradle/
+android/build/
+android/app/build/
+*.apk
+*.aab
+
+# iOS 构建残留
+ios/*.xcworkspace
+ios/Pods/
+ios/build/
+
+# 压缩包
+*.zip
+*.7z
+*.rar
+
+# 日志
+*.log
+
+# 翻译编译产物
+*.translation
