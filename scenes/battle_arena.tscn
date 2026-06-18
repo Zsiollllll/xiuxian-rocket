@@ -1,30 +1,39 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://battlearena"]
 
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player_scene"]
 [ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="2_enemy_scene"]
 [ext_resource type="PackedScene" path="res://scenes/dual_hud.tscn" id="3_hud_scene"]
 [ext_resource type="Script" path="res://scripts/systems/battle_arena_controller.gd" id="4_ctrl"]
 
-[node name="BattleArenaRoot" type="Node"]
+[node name="BattleArenaRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="BattleArenaController" type="Node" parent="."]
 script = ExtResource("4_ctrl")
 
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.05, 0.12, 1)
+
+[node name="GroundLine" type="ColorRect" parent="."]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.62
+anchor_right = 1.0
+anchor_bottom = 0.62
+offset_top = 0
+offset_bottom = 6
+color = Color(0.12, 0.18, 0.12, 1)
+
 [node name="BattleArena" type="Node2D" parent="."]
 
-[node name="Background" type="ColorRect" parent="BattleArena"]
-color = Color(0.05, 0.05, 0.12, 1)
-offset_right = 390
-offset_bottom = 844
-
-[node name="GroundDeco" type="ColorRect" parent="BattleArena"]
-color = Color(0.12, 0.18, 0.12, 1)
-offset_left = 0
-offset_top = 520
-offset_right = 390
-offset_bottom = 526
-
-[node name="PlayerSpawn" type="Node2D" parent="BattleArena"]
+[node name="PlayerSpawn" type="Marker2D" parent="BattleArena"]
 position = Vector2(195, 600)
 
 [node name="Player" parent="BattleArena/PlayerSpawn" instance=ExtResource("1_player_scene")]
