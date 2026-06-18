@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy/enemy_base.gd" id="1_enemy"]
+[ext_resource type="Script" path="res://scripts/ui/placeholder_sprite.gd" id="2_placeholder"]
+
+[sub_resource type="RectangleShape2D" id="RectShape_enemy_body"]
+size = Vector2(50, 50)
+
+[sub_resource type="CircleShape2D" id="CircleShape_hurtbox"]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape_detection"]
+radius = 400.0
+
+[sub_resource type="RectangleShape2D" id="RectShape_collision"]
+size = Vector2(50, 50)
+
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(195, 200)
+script = ExtResource("1_enemy")
+enemy_display_name = "妖兽·灵猫"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+script = ExtResource("2_placeholder")
+rect_color = Color(0.9, 0.3, 0.3, 1)
+rect_width = 48
+rect_height = 48
+label_text = "妖"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectShape_collision")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape_hurtbox")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape_detection")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

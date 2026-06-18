@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player_scene"]
+[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="2_enemy_scene"]
+[ext_resource type="PackedScene" path="res://scenes/dual_hud.tscn" id="3_hud_scene"]
+[ext_resource type="Script" path="res://scripts/systems/battle_arena_controller.gd" id="4_ctrl"]
+
+[node name="BattleArenaRoot" type="Node"]
+
+[node name="BattleArenaController" type="Node" parent="."]
+script = ExtResource("4_ctrl")
+
+[node name="BattleArena" type="Node2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="BattleArena"]
+color = Color(0.05, 0.05, 0.12, 1)
+offset_right = 390
+offset_bottom = 844
+
+[node name="GroundDeco" type="ColorRect" parent="BattleArena"]
+color = Color(0.12, 0.18, 0.12, 1)
+offset_left = 0
+offset_top = 520
+offset_right = 390
+offset_bottom = 526
+
+[node name="PlayerSpawn" type="Node2D" parent="BattleArena"]
+position = Vector2(195, 600)
+
+[node name="Player" parent="BattleArena/PlayerSpawn" instance=ExtResource("1_player_scene")]
+
+[node name="EnemySpawn" parent="BattleArena" type="Marker2D"]
+position = Vector2(195, 200)
+
+[node name="HUD" parent="." instance=ExtResource("3_hud_scene")]

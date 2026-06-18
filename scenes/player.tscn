@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_player"]
+[ext_resource type="Script" path="res://scripts/ui/placeholder_sprite.gd" id="2_placeholder"]
+[ext_resource type="Resource" path="res://resources/default_combat_data.tres" id="3_combat_data"]
+
+[sub_resource type="RectangleShape2D" id="RectShape_player"]
+size = Vector2(40, 60)
+
+[sub_resource type="CircleShape2D" id="CircleShape_hitbox"]
+radius = 80.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(195, 600)
+script = ExtResource("1_player")
+combat_data = ExtResource("3_combat_data")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+script = ExtResource("2_placeholder")
+rect_color = Color(0.3, 0.6, 1, 1)
+rect_width = 48
+rect_height = 64
+label_text = "我"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectShape_player")
+position = Vector2(0, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape_hitbox")
+
+[node name="InvincibleTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,0 +1,190 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu_controller.gd" id="1_ctrl"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ctrl")
+
+; === 背景 ===
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 390
+offset_bottom = 844
+color = Color(0.02, 0.02, 0.08, 1)
+
+; === 标题页 ===
+[node name="TitlePage" type="Control" parent="."]
+layout_mode = 0
+offset_right = 390
+offset_bottom = 844
+
+[node name="TitleLabel" type="Label" parent="TitlePage"]
+layout_mode = 0
+offset_left = 20
+offset_top = 150
+offset_right = 370
+offset_bottom = 250
+text = "修仙？我直接架火箭"
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 32)
+add_theme_color_override("font_color", Color(0.3, 0.7, 1, 1))
+
+[node name="SubtitleLabel" type="Label" parent="TitlePage"]
+layout_mode = 0
+offset_left = 40
+offset_top = 250
+offset_right = 350
+offset_bottom = 290
+text = "穿越修仙世界，选择你的命运"
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 16)
+add_theme_color_override("font_color", Color(0.6, 0.6, 0.7, 1))
+
+[node name="BtnNewGame" type="Button" parent="TitlePage"]
+layout_mode = 0
+offset_left = 80
+offset_top = 380
+offset_right = 310
+offset_bottom = 450
+text = "新的旅程"
+add_theme_font_size_override("font_size", 22)
+
+[node name="BtnContinue" type="Button" parent="TitlePage"]
+layout_mode = 0
+offset_left = 80
+offset_top = 470
+offset_right = 310
+offset_bottom = 540
+text = "继续修行"
+add_theme_font_size_override("font_size", 22)
+
+[node name="BtnSettings" type="Button" parent="TitlePage"]
+layout_mode = 0
+offset_left = 130
+offset_top = 580
+offset_right = 260
+offset_bottom = 630
+text = "设置"
+add_theme_font_size_override("font_size", 16)
+
+[node name="VersionLabel" type="Label" parent="TitlePage"]
+layout_mode = 0
+offset_left = 150
+offset_top = 800
+offset_right = 240
+offset_bottom = 830
+text = "v0.1.0"
+horizontal_alignment = 1
+
+; === 路线选择页 ===
+[node name="RouteSelectPage" type="Control" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 390
+offset_bottom = 844
+
+[node name="TitleLabel2" type="Label" parent="RouteSelectPage"]
+layout_mode = 0
+offset_left = 20
+offset_top = 60
+offset_right = 370
+offset_bottom = 110
+text = "选择你的道路"
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 28)
+add_theme_color_override("font_color", Color.WHITE)
+
+; 修仙路线卡片
+[node name="CultivationPanel" type="Panel" parent="RouteSelectPage"]
+layout_mode = 0
+offset_left = 20
+offset_top = 140
+offset_right = 370
+offset_bottom = 420
+
+[node name="BtnCultivation" type="Button" parent="RouteSelectPage"]
+layout_mode = 0
+offset_left = 40
+offset_top = 370
+offset_right = 350
+offset_bottom = 430
+text = "选择修仙之路 🏯"
+add_theme_font_size_override("font_size", 20)
+
+[node name="CultivationDesc" type="RichTextLabel" parent="RouteSelectPage"]
+layout_mode = 0
+offset_left = 25
+offset_top = 145
+offset_right = 365
+offset_bottom = 365
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+; 军工路线卡片
+[node name="TechPanel" type="Panel" parent="RouteSelectPage"]
+layout_mode = 0
+offset_left = 20
+offset_top = 450
+offset_right = 370
+offset_bottom = 730
+
+[node name="BtnTech" type="Button" parent="RouteSelectPage"]
+layout_mode = 0
+offset_left = 40
+offset_top = 680
+offset_right = 350
+offset_bottom = 740
+text = "选择军工之路 🔧"
+add_theme_font_size_override("font_size", 20)
+
+[node name="TechDesc" type="RichTextLabel" parent="RouteSelectPage"]
+layout_mode = 0
+offset_left = 25
+offset_top = 455
+offset_right = 365
+offset_bottom = 675
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="BtnBack" type="Button" parent="RouteSelectPage"]
+layout_mode = 0
+offset_left = 120
+offset_top = 770
+offset_right = 270
+offset_bottom = 820
+text = "← 返回"
+
+; === 加载页 ===
+[node name="LoadingPage" type="Control" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 390
+offset_bottom = 844
+
+[node name="LoadingLabel" type="Label" parent="LoadingPage"]
+layout_mode = 0
+offset_left = 50
+offset_top = 390
+offset_right = 340
+offset_bottom = 440
+text = "世界构建中..."
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 20)
+add_theme_color_override("font_color", Color.WHITE)
+
+[node name="LoadingBar" type="ProgressBar" parent="LoadingPage"]
+layout_mode = 0
+offset_left = 60
+offset_top = 450
+offset_right = 330
+offset_bottom = 475
+value = 0.0
+show_percentage = false
