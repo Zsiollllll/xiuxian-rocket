@@ -1,6 +1,172 @@
-[gd_scene load_steps=2 format=3 uid="uid://mainmenu"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://scripts/ui/main_menu_controller.gd" id="1_ctrl"]
+[sub_resource type="GDScript" id="1_main"]
+script/source = "extends Control
+
+var _title_page = null
+var _route_page = null
+var _load_page = null
+var _btn_new: Button = null
+var _btn_cult: Button = null
+var _btn_tech: Button = null
+var _load_bar: ProgressBar = null
+var _route: String = ''
+
+func _ready():
+	print('[Menu] Init')
+	var bg = ColorRect.new()
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.color = Color(0.02, 0.02, 0.08)
+	add_child(bg)
+	
+	# Title page
+	_title_page = Control.new()
+	_title_page.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(_title_page)
+	
+	var t = Label.new()
+	t.text = '修仙？我直接架火箭'
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t.add_theme_font_size_override('font_size', 32)
+	t.add_theme_color_override('font_color', Color(0.3, 0.7, 1))
+	t.position = Vector2(20, 150)
+	t.size = Vector2(350, 60)
+	_title_page.add_child(t)
+	
+	var st = Label.new()
+	st.text = '穿越修仙世界，选择你的命运'
+	st.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	st.add_theme_font_size_override('font_size', 16)
+	st.add_theme_color_override('font_color', Color(0.6, 0.6, 0.7))
+	st.position = Vector2(40, 250)
+	st.size = Vector2(310, 30)
+	_title_page.add_child(st)
+	
+	_btn_new = Button.new()
+	_btn_new.text = '新的旅程'
+	_btn_new.add_theme_font_size_override('font_size', 22)
+	_btn_new.position = Vector2(80, 380)
+	_btn_new.size = Vector2(230, 60)
+	_btn_new.pressed.connect(_start_new)
+	_title_page.add_child(_btn_new)
+	
+	var bset = Button.new()
+	bset.text = '设置'
+	bset.position = Vector2(130, 580)
+	bset.size = Vector2(130, 40)
+	_title_page.add_child(bset)
+	
+	var v = Label.new()
+	v.text = 'v0.1.0'
+	v.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.position = Vector2(150, 800)
+	v.size = Vector2(90, 20)
+	_title_page.add_child(v)
+	
+	# Route page
+	_route_page = Control.new()
+	_route_page.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_route_page.visible = false
+	add_child(_route_page)
+	
+	var rh = Label.new()
+	rh.text = '选择你的道路'
+	rh.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	rh.add_theme_font_size_override('font_size', 28)
+	rh.position = Vector2(20, 40)
+	rh.size = Vector2(350, 50)
+	_route_page.add_child(rh)
+	
+	# Cultivation card
+	var cp = Panel.new()
+	cp.position = Vector2(15, 110)
+	cp.size = Vector2(360, 280)
+	_route_page.add_child(cp)
+	
+	var cd = RichTextLabel.new()
+	cd.bbcode_enabled = true
+	cd.fit_content = true
+	cd.scroll_active = false
+	cd.position = Vector2(25, 115)
+	cd.size = Vector2(340, 270)
+	cd.text = '[center][color=#4fc3f7]🏯 修仙之路[/color][/center]
+修炼：炼气→筑基→金丹→元婴→化神→渡劫→大乘
+核心：灵力管理·法术连击·元素反应·法宝搭配
+风格：爆发输出，灵活闪避，技能连招'
+	_route_page.add_child(cd)
+	
+	_btn_cult = Button.new()
+	_btn_cult.text = '选择修仙之路'
+	_btn_cult.add_theme_font_size_override('font_size', 20)
+	_btn_cult.position = Vector2(40, 390)
+	_btn_cult.size = Vector2(310, 55)
+	_btn_cult.pressed.connect(func(): _launch('cultivation'))
+	_route_page.add_child(_btn_cult)
+	
+	# Tech card
+	var tp = Panel.new()
+	tp.position = Vector2(15, 465)
+	tp.size = Vector2(360, 270)
+	_route_page.add_child(tp)
+	
+	var td = RichTextLabel.new()
+	td.bbcode_enabled = true
+	td.fit_content = true
+	td.scroll_active = false
+	td.position = Vector2(25, 470)
+	td.size = Vector2(340, 260)
+	td.text = '[center][color=#ff6b35]🔧 军工之路[/color][/center]
+科技：基础工坊→精密加工→动力核心→机甲→量产→核聚变→星际
+核心：弹药管理·过热系统·武器切换·重火力
+风格：持续输出，策略规划，降维打击'
+	_route_page.add_child(td)
+	
+	_btn_tech = Button.new()
+	_btn_tech.text = '选择军工之路'
+	_btn_tech.add_theme_font_size_override('font_size', 20)
+	_btn_tech.position = Vector2(40, 735)
+	_btn_tech.size = Vector2(310, 55)
+	_btn_tech.pressed.connect(func(): _launch('tech'))
+	_route_page.add_child(_btn_tech)
+	
+	# Loading page
+	_load_page = Control.new()
+	_load_page.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_load_page.visible = false
+	add_child(_load_page)
+	
+	var ll = Label.new()
+	ll.text = '世界构建中...'
+	ll.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ll.add_theme_font_size_override('font_size', 20)
+	ll.position = Vector2(50, 390)
+	ll.size = Vector2(290, 40)
+	_load_page.add_child(ll)
+	
+	_load_bar = ProgressBar.new()
+	_load_bar.position = Vector2(65, 450)
+	_load_bar.size = Vector2(260, 20)
+	_load_bar.value = 0.0
+	_load_bar.show_percentage = false
+	_load_page.add_child(_load_bar)
+	
+	print('[Menu] Ready - children:', get_child_count())
+
+func _start_new():
+	_title_page.visible = false
+	_route_page.visible = true
+
+func _launch(route: String):
+	_route = route
+	_route_page.visible = false
+	_load_page.visible = true
+	var eb = get_node_or_null('/root/EventBus')
+	if eb:
+		eb.set_meta('selected_route', route)
+	var tw = create_tween()
+	tw.tween_property(_load_bar, 'value', 1.0, 1.0)
+	tw.tween_callback(func(): get_tree().change_scene_to_file('res://scenes/battle_arena.tscn'))
+"
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -9,4 +175,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ctrl")
+script = SubResource("1_main")
